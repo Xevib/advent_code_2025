@@ -30,12 +30,12 @@ fn parse_data(path: &str)->Vec<Vec<i32>>{
 
 fn is_safe(data:Vec<i32>) -> bool{
     let mut index =0;
-    let  decrases = (data[0] - data[1]) < 0;
+    let decrases = (data[0] - data[1]) < 0;
     while index < data.len(){
         if index > 0 {
             let diff = data[index - 1] -data[index];
             if diff == 0 {
-                println!("{:?} : UNSAFE", data);
+                println!("{:?} : Unsafe", data);
                 return false;
             }
             if (diff > 0) && decrases {
