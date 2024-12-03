@@ -5,30 +5,38 @@ pub fn main() {
     let mut sum = 0;
     let mut index = 0;
 
-    let (mut right, mut left) = read_lines("./src/1/input.txt");
+    let (mut right, mut left) = read_lines("./src/day1/part2/input.txt");
 
     right.sort();
     left.sort();
     let hist_right = histogram(&right); 
 
     while index < left.len() {
-        sum += hist_right[&left[index]];
+        if hist_right.contains_key(&left[index]){
+            println!("index: {}",index);
+            let left_val = left[index];
+            let count  = hist_right.get(&left_val).unwrap();
+            sum += count * left_val;
+            //sum += hist_right.get(&left[index]).unwrap() * left[index];
+        }
+        
         index +=1;
     }
     print!("sum: {}\n", sum);
 }
 
 fn histogram(data: &Vec<u32>) -> HashMap<u32,u32>{
-    let mut count = 0;
-    let mut ret = HashMap::new();
+    let mut count: u32;
+    let mut ret: HashMap<u32, u32> = HashMap::new();
 
     for element in data {
+        count = 0;
         for count_element in data {
             if element == count_element {
                 count += 1;
             }
         }
-        ret.insert(element, count);
+        ret.insert(*element, count);
     }
     return ret;
 }
